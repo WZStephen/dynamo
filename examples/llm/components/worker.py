@@ -190,6 +190,10 @@ class VllmWorker:
             request_id=request.request_id,
             remote_prefill_params=remote_prefill_params,
         ):
+            print(f"[Worker] generate response: {response}")
+            # Okay RequestOutput(request_id=d1c0bdfc-d9bc-4f18-bc32-73125f70466e, prompt=None, prompt_token_ids=[128000, 128011, 13347, 128012, 128013, 198], encoder_prompt=None, encoder_prompt_token_ids=None, prompt_logprobs=None, outputs=[CompletionOutput(index=0, text='Okay', token_ids=[33413], cumulative_logprob=None, logprobs=None, finish_reason=None, stop_reason=None)], finished=False, metrics=RequestMetrics(arrival_time=1744209011.7393403, last_token_time=1744209011.8419902, first_scheduled_time=1744209011.742777, first_token_time=1744209011.8419902, time_in_queue=0.0034368038177490234, finished_time=None, scheduler_time=0.002474748995155096, model_forward_time=None, model_execute_time=None), lora_request=None, num_cached_tokens=0, multi_modal_placeholders={})
+            # , RequestOutput(request_id=d1c0bdfc-d9bc-4f18-bc32-73125f70466e, prompt=None, prompt_token_ids=None, encoder_prompt=None, encoder_prompt_token_ids=None, prompt_logprobs=None, outputs=[CompletionOutput(index=0, text='?', token_ids=[30], cumulative_logprob=None, logprobs=None, finish_reason=None, stop_reason=None)], finished=False, metrics=RequestMetrics(arrival_time=1744209011.7393403, last_token_time=1744209015.1321826, first_scheduled_time=1744209011.742777, first_token_time=1744209011.8419902, time_in_queue=0.0034368038177490234, finished_time=None, scheduler_time=0.0325846835039556, model_forward_time=None, model_execute_time=None), lora_request=None, num_cached_tokens=0, multi_modal_placeholders={})
+            # stop RequestOutput(request_id=cf631bc2-0e5e-481c-9640-c8aa23dc0080, prompt=None, prompt_token_ids=None, encoder_prompt=None, encoder_prompt_token_ids=None, prompt_logprobs=None, outputs=[CompletionOutput(index=0, text='', token_ids=[128001], cumulative_logprob=None, logprobs=None, finish_reason=stop, stop_reason=None)], finished=True, metrics=RequestMetrics(arrival_time=1744207797.2070615, last_token_time=1744207800.658261, first_scheduled_time=1744207797.2102935, first_token_time=1744207797.3102992, time_in_queue=0.0032320022583007812, finished_time=1744207800.6587524, scheduler_time=0.03442516701761633, model_forward_time=None, model_execute_time=None), lora_request=None, num_cached_tokens=0, multi_modal_placeholders={})
             yield MyRequestOutput(
                 request_id=response.request_id,
                 prompt=response.prompt,
@@ -198,3 +202,4 @@ class VllmWorker:
                 outputs=response.outputs,
                 finished=response.finished,
             ).model_dump_json()
+

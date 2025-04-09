@@ -1,0 +1,23 @@
+Frontend:
+  served_model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  endpoint: dynamo.Processor.chat/completions
+  port: 8000
+
+Processor:
+  model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  router: round-robin
+
+SGLangWorker:
+  model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  tensor-parallel-size: 1
+  remote-prefill: false
+  conditional-disagg: true
+  max-local-prefill-length: 1000
+  max-prefill-queue-size: 2
+  max-tokens: 2048
+  temperature: 1
+  router: random
+  top-p: 1
+  top-k: 50
+  max-batch-size: 32
+  max-batch-tokens: 16384

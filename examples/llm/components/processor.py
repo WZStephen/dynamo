@@ -157,10 +157,15 @@ class Processor(ProcessMixIn):
             )
 
         output = self._generate_responses(engine_generator, request_type)
+        print(f"[Processor] preprocessed request: {request}") # messages=[{'content': 'Hi', 'role': 'user'}] model='deepseek-ai/DeepSeek-R1-Distill-Llama-8B' frequency_penalty=0.0 logit_bias=None logprobs=False top_logprobs=0 max_tokens=None max_completion_tokens=None n=1 presence_penalty=0.0 response_format=None seed=None stop=[] stream=True stream_options=None temperature=None top_p=None tools=None tool_choice='none' parallel_tool_calls=False user=None best_of=None use_beam_search=False top_k=None min_p=None repetition_penalty=None length_penalty=1.0 stop_token_ids=[] include_stop_str_in_output=False ignore_eos=False min_tokens=0 skip_special_tokens=True spaces_between_special_tokens=True truncate_prompt_tokens=None prompt_logprobs=None echo=False add_generation_prompt=True continue_final_message=False add_special_tokens=False documents=None chat_template=None chat_template_kwargs=None guided_json=None guided_regex=None guided_choice=None guided_grammar=None guided_decoding_backend=None guided_whitespace_pattern=None priority=0 request_id='384fabe77c484fd4b186d9ffd29e8be5' logits_processors=None
+        print(f"[Processor] output: {output}") #  <async_generator object Processor._generate_responses at 0x7faf0a214d50>
+        print(f"[Processor] request_id: {request_id}") # d81358a5-c336-4657-91db-fb7665609859
+        print(f"[Processor] conversation: {conversation}") # {'role': 'user', 'content': 'Hi'}
 
         async for response in await self._stream_response(
             request, output, request_id, conversation
         ):
+            print(f"[Processor] stream response: {response}")
             yield response
 
     async def _generate_responses(
@@ -203,3 +208,8 @@ class Processor(ProcessMixIn):
     # async def completions(self, raw_request: CompletionRequest):
     #     async for response in self._generate(raw_request, RequestType.COMPLETION):
     #         yield response
+
+# {'id': 'cf631bc2-0e5e-481c-9640-c8aa23dc0080', 'object': 'chat.completion.chunk', 'created': 1744207797, 'model': 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B', 'choices': [{'index': 0, 'delta': {'role': 'assistant', 'content': ''}, 'logprobs': None, 'finish_reason': None}]}
+# {'id': 'cf631bc2-0e5e-481c-9640-c8aa23dc0080', 'object': 'chat.completion.chunk', 'created': 1744207797, 'model': 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B', 'choices': [{'index': 0, 'delta': {'content': '?'}, 'logprobs': None, 'finish_reason': None}]}
+# {'id': 'cf631bc2-0e5e-481c-9640-c8aa23dc0080', 'object': 'chat.completion.chunk', 'created': 1744207797, 'model': 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B', 'choices': [{'index': 0, 'delta': {'content': 'Okay'}, 'logprobs': None, 'finish_reason': None}]}
+# {'id': 'cf631bc2-0e5e-481c-9640-c8aa23dc0080', 'object': 'chat.completion.chunk', 'created': 1744207797, 'model': 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B', 'choices': [{'index': 0, 'delta': {'content': ''}, 'logprobs': None, 'finish_reason': 'stop', 'stop_reason': None}]}

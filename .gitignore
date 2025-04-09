@@ -9,7 +9,6 @@
 [Tt][Mm][Pp]/
 
 **/.idea
-**/.vscode/
 **/[Bb]inlog/
 **/[Dd]ebug/
 **/[Oo][Bb][Jj]/
@@ -83,3 +82,7 @@ Chart.lock
 generated-values.yaml
 
 TensorRT-LLM
+
+examples/sglang/
+examples/vllm/
+llm_test
